@@ -31,7 +31,7 @@ Calculate_Pvalue <- function(M,G,X,OS){
   data1 = list(M = M,G=G,x=X,time = OS$time,event=OS$event)
   ## step 1   total effect and DE -----coxKM
   Gamma = coxph(Surv(OS$time,OS$event) ~ X)$coef
-  P_gamma_TE = coxKM(Z=M, U=OS$time, Delta=OS$event, X=X, gamma=Gamma, kernel="linear")$`p.value`
+  p_gamma_TE = coxKM(Z=M, U=OS$time, Delta=OS$event, X=X, gamma=Gamma, kernel="linear")$`p.value`
   Gamma = coxph(Surv(OS$time,OS$event) ~ cbind(X,G))$coef
   p_gamma_DE = coxKM(Z=M, U=OS$time, Delta=OS$event, X=cbind(X,G), gamma=Gamma, kernel="linear")$`p.value`
   ## step 2   alpha  -----SKAT
