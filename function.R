@@ -74,6 +74,10 @@ IUSMMT <- function(p_a, p_b){
   ####### Values 
   ####### p_IUSMMT : joint significant test for mediators.
   ####################################################################################################################################
+  pkgs <- list("fdrtool")
+  checking<-unlist(lapply(pkgs, require, character.only = T))
+  if(any(checking==F))
+    stop("Please install the necessary packages first!")
   input_pvalues <- cbind(p_a, p_b)
   input_pvalues <- apply(input_pvalues,2,dup.fun)
   nullprop <- null_estimation(input_pvalues,lambda=0.5)
