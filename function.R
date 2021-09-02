@@ -282,3 +282,29 @@ fdr_est <- function (alpha00, alpha01, alpha10, alpha1, alpha2, input_pvalues, e
   efdr1 <- efdr1.order[rank(-pmax)]
   return(efdr = efdr1)
 }
+
+dup.fun <- function(x){
+  while(any(duplicated(x))){
+    n = which(x == 1)
+    if(length(n) >= 1){
+      x[n] = x[n] - runif(length(n),1e-7,1e-5)
+    }
+    n = which(x == 0)
+    if(length(n) >= 1){
+      x[n] = x[n] + runif(length(n),1e-10,1e-5)
+    }
+    m = which(duplicated(x))
+    if(length(m) >= 1){
+      x[m] = min(x[m] + runif(length(m),1e-10,1e-8),1)
+    }
+    n = which(x == 1)
+    if(length(n) >= 1){
+      x[n] = x[n] - runif(length(n),1e-10,1e-8)
+    }
+    m = which(duplicated(x))
+    if(length(m) >= 1){
+      x[m] = min(x[m] + runif(length(m),1e-15,1e-11),1)
+    }
+  }
+  return(x)
+}
